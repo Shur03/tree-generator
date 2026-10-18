@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Удам — Ургийн мод
 
-## Getting Started
+Монгол хэлтэй ургийн модны хэрэгсэл. Т.Болормаагийн гэр бүлийн долоон хүнийг гурван үеэр анх харуулна.
 
-First, run the development server:
+## Ажиллуулах
 
-```bash
+```sh
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+http://localhost:3000 хаягаар нээнэ. Үйлдвэрлэлийн хувилбар: `npm run build`, дараа нь `npm start`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Хэрэглэх
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Хүн дээр дарж баруун самбарт нэр, хүйс, онуудыг засаад хадгална. Хүйсийг нэрээр таамаглахгүй. Эмэгтэйг тэгш өнцөгт, эрэгтэйг капсул хүрээнд харуулна. Төрсөн онгүй бол зөвхөн нэр харагдана.
 
-## Learn More
+Баруун самбараас эцэг эх, хань, хүүхэд нэмж, бүртгэлтэй хүн сонгох эсвэл шинээр бүртгэнэ. ID давхцахгүй. Олон гэрлэлтийн хүүхдүүдийг гэр бүл тус бүрд бүртгэнэ. Хүүхдийг төрсөн оноор эрэмбэлэх бөгөөд онгүй хүүхдүүд сүүлд орно. Жагсаалтын сумуудаар дарааллыг сольж, «Оноор» товчоор автомат эрэмбийг сэргээнэ.
 
-To learn more about Next.js, take a look at the following resources:
+Хоосон талбайгаас чирж шилжүүлнэ. +/−, Ctrl+дугуй, дэлгэцэд багтаах товчоор томруулж жижигрүүлнэ. Сүүлийн 30 үйлдлийг буцаах/дахин хийх боломжтой. Устгахад холбогдох холбоос цэвэрлэгдэнэ. Өөрийнхөө эцэг эх болох, тойрог удам угсаа, давхар ID болон хоёр гэр бүлд давхар хүүхэд бүртгэхийг хориглоно.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Олон гэрлэлттэй хүнийг гэр бүл тус бүрийн зүүн талд давтан зурна; ID нь нэг бүртгэл рүү заана. Модонд үндсэн хүний дээд угсаа ба тэдний үр удмыг харуулна. Тусдаа хүн эсвэл ханий бусад гэр бүлийг харахдаа тухайн хүнийг жагсаалтаас сонгон «Үндсэн хүн болгох» товчийг ашиглана.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Хадгалалт
 
-## Deploy on Vercel
+Өгөгдөл энэ хөтчийн localStorage-д автоматаар хадгалагдана. Сервер болон бусад төхөөрөмжид автоматаар дамжихгүй. JSON татаж нөөцлөөд «Файлаас нээх» товчоор дахин засварлана. Хөтчийн өгөгдлийг цэвэрлэхэд локал бүртгэл арилна. Импорт одоогийн модыг солино; тухайн сессэд буцаах боломжтой.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Excel болон CSV
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+«Хэрэглэх заавар» цонхонд Excel загвар татах товч бий. «Экспортлох → Excel өгөгдөл» нь одоогийн модыг гаргана. Excel .xlsx болон UTF-8 CSV дэмжинэ. Хуучин .xls файлыг Excel-д .xlsx болгож хадгална. Файлын дээд хэмжээ 10 МБ.
+
+Excel-ийн `people` хуудасны баганууд:
+
+| id | name | gender | birthYear | deathYear |
+| --- | --- | --- | --- | --- |
+| P001 | Н.Тэшигсүрэн | male | | |
+| P002 | Даваасүрэн | female | | |
+| P003 | Т.Болормаа | female | 1983 | |
+
+`families` хуудасны баганууд:
+
+| id | left | right | children | manual |
+| --- | --- | --- | --- | --- |
+| F001 | P001 | P002 | P003 | false |
+
+Хүүхдийн ID-уудыг `|` тэмдэгтээр тусгаарлана. `manual=true` бол бичсэн дарааллыг хадгална. `right` хоосон байж болно. Хүний нэрээр холбоос тогтоохгүй.
+
+CSV нь `id,name,gender,birthYear,deathYear,fatherId,motherId,spouseId` баганатай. Хүйс нь `male`/`female` эсвэл `эрэгтэй`/`эмэгтэй`. Нэр дотор таслалтай бол хашилтад оруулна. Таслал, цэгтэй таслал, таб тусгаарлагч дэмжинэ. Олон гэрлэлтийн бүтцийг бүрэн зөөхөд Excel эсвэл JSON ашиглана.
+
+## Экспорт
+
+- SVG: вектор хүрээ, текст ба холбоос.
+- PNG: цагаан дэвсгэртэй зураг.
+- PDF: кирилл үсгийг хадгалах өндөр нягтралтай зурагтай PDF.
+- Word .docx: native DrawingML хүрээ, тус тусдаа засварлах текстийн хайрцаг, чиглэлтэй холбоос. Зураг агуулдаггүй. Word 2010+ ашиглана. Том модыг нэг хуудсанд багтаахын тулд хэмжээг багасгана.
+
+## Шалгах
+
+```sh
+npm test
+npx tsc --noEmit
+npm run build
+```
+
+Тестүүд дүрс давхцах, шугам хүрээг дайрах эсэх, дараалал, олон гэрлэлт, үр удмын тэлэлт, буруу холбоос, CSV/Excel импорт болон зураггүй native DrawingML экспорт шалгана. Desktop Word дээрх харагдацыг энэ орчинд тусад нь баталгаажуулаагүй.
+"# tree-generator" 
